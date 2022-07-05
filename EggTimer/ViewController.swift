@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     var timer = Timer()
     var minutes: String = "0"
     var minutesCounter = 0
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
       
@@ -26,17 +26,16 @@ class ViewController: UIViewController {
     @IBAction func sliderChanged(_ sender: UISlider) {
         timeLabel.text = "\(Int(sender.value))"
         minutesCounter = Int(sender.value)
-        print(minutesCounter)
     }
-    
 
     @IBAction func buttonsTapped(_ sender: UIButton) {
-
-        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(eggState), userInfo: nil, repeats: true)
-    
+        if !timer.isValid{
+            timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(eggState), userInfo: nil, repeats: true)
+        }
+        
         switch sender.tag{
         case 0:
-            reset()
+           reset()
             minutesCounter = 6
         case 1:
             reset()
@@ -47,7 +46,6 @@ class ViewController: UIViewController {
         default:
             print("button is not found")
         }
-     
     }
     
     @objc func eggState(){
@@ -58,9 +56,7 @@ class ViewController: UIViewController {
         }
         timeLabel.text = "\(minutesCounter)"
         slider.value = Float(Int(minutesCounter))
-        
     }
-    
     
     func reset(){
         timeLabel.text = "0"
@@ -68,6 +64,4 @@ class ViewController: UIViewController {
         slider.value = 0
     }
   }
-
-
 
